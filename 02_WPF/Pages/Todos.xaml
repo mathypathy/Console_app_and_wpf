@@ -1,0 +1,27 @@
+﻿<Page x:Class="_02_WPF.Pages.Todos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_02_WPF.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Todos">
+
+    <Grid Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Text="Todos" Foreground="White" FontSize="22" FontWeight="Bold" Padding="12" Margin="300 0 0 50"/>
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="Enter a activity.." Foreground="White" Margin="300 20 0 0"/>
+            <TextBox x:Name="tb_enter_Activity" Padding="5" Margin="0 5 0 0" Width="350"/>
+            <Button x:Name="btn_add_Activity" Content="Add Activity" Padding="8" Click="btn_add_Activity_Click" Width="100" Margin="20 10 -225 0"/>
+            
+        </StackPanel>
+    
+    </Grid>
+</Page>
