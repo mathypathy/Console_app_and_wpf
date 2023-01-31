@@ -6,13 +6,13 @@ namespace ConsoleApp.Services
     {
         public string DocPath { get; set; } = null!;
 
-        public void SavedDocuments(string content, string DocPath)
+        public void SavedDocuments(string DocPath, string content)
         {
 
             using var sw = new StreamWriter(DocPath);
             sw.WriteLine(content);
         }
-        public string ReadDocuments()
+        public string ReadDocuments(string DocPath)
         {
             try
             {

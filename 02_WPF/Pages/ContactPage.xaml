@@ -51,11 +51,13 @@
             </Grid>
 
 
-            <!-- Update Contact -->
-            
+            <!-- Edit Contact -->
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
+                <Button Name="Btn_Edit_Contact" Click="Btn_Edit_Contact_Click" VerticalAlignment="Top" Content="Edit Contact" Padding="5" Margin="28 320 210 0" Background="white" FontWeight="Bold" Width="170" />
+            </Grid>
 
             <!-- LIST OF CONTACTS-->
-            <ListView Name="lv_Contacts" Grid.Column="2" Margin="0,45,25,140" SelectionChanged="lv_Contacts_SelectionChanged">
+            <ListView Name="lv_Contacts" Grid.Column="2" Margin="0,43,210,134" SelectionChanged="lv_Contacts_SelectionChanged" Width="180" Height="240" SelectionMode="Single" >
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="models:Contact">
                         <StackPanel Margin="0 5 0 5">
@@ -65,11 +67,12 @@
                                 <Run Text="ICE:"/>
                                 <Run Text="{Binding ICE}"/>
                             </TextBlock>
-                            
-
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="lv_ContactInfo" Grid.Column="2" Margin="0 43 -170 134 "  Width="180" Height="240">
+
             </ListView>
 
 

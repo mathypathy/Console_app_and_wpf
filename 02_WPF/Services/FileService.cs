@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -41,9 +42,12 @@ namespace _02_WPF.Services
           
         }
 
-        public IEnumerable<Activity_todo> Activity()
+        public ObservableCollection<Activity_todo> Activity()
         {
-            return activities;
+            var items = new ObservableCollection<Activity_todo>();
+            foreach (var actitivity in activities)
+                items.Add(actitivity);
+            return items;
         }
 
     }

@@ -87,6 +87,7 @@ namespace _02_WPF.Pages
                 if (lv_Contacts.SelectedItem != null)
                 {
                     contacts.Remove(lv_Contacts.SelectedItem as Contact);
+                    
                 }
                 doc.SaveDoc(JsonConvert.SerializeObject(contacts));
 
@@ -108,14 +109,21 @@ namespace _02_WPF.Pages
         tb_ICE.Text = "";
     }
 
+        private void Btn_Edit_Contact_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            var contact = (Contact)button.DataContext;
+            
+           
+        }
 
-
-
-
-
-
-
-}
+        private void lv_Contact_Selected(object sender, RoutedEventArgs e)
+        {
+            var ListViewItem = (ListViewItem)sender;
+            var contact = (Contact)ListViewItem.DataContext;
+            MessageBox.Show(contact.DisplayContact);
+        }
+    }
 }
 
     

@@ -10,18 +10,24 @@ using Newtonsoft.Json;
 
 namespace ConsoleApp.Services
 {
+
+    
     internal class MenuManagement
     { 
-
        // Builds a list for all contacts.
         private List<IContact> contacts = new List<IContact>();
-        private readonly DocumentManagement doc = new DocumentManagement();
-        
+        private  DocumentManagement doc = new DocumentManagement();
+        public string DocPath { get; set; } = null!;
 
-       
 
         public void WelcomeMenu() // shows start menu
         {
+            try
+            {
+                contacts = JsonConvert.DeserializeObject<List<IContact>>(doc.ReadDocuments(DocPath))!;
+            }
+            catch { }
+
             Console.Clear();
             Console.WriteLine("Welcome to the contact list!");
             Console.WriteLine("1.Add Contact");
@@ -30,7 +36,6 @@ namespace ConsoleApp.Services
             Console.WriteLine("4.Show all contacts");
             Console.Write("What do you want to do?: ");
             var option = Console.ReadLine();
-
             switch (option)
             {
                 case "1":
@@ -55,7 +60,6 @@ namespace ConsoleApp.Services
 
         private void OptionOne() // adds contact
         {
-            
             Console.Clear();
             Console.WriteLine("Add Your contact.");
             IContact contact = new Contact();
@@ -69,47 +73,52 @@ namespace ConsoleApp.Services
             contact.FamilyMember = Console.ReadLine() ?? null!;
             Console.Write("is this a ICE contact?");
             contact.ICE = Console.ReadLine() ?? null!;
-
-            
             contacts.Add(contact);
-         
-            
-
-
+            doc.SavedDocuments(DocPath, JsonConvert.SerializeObject(contacts));
+            Console.ReadLine();
+            WelcomeMenu();
         }
+
+
         private void OptionTwo() // removes contact
+        {
+            Console.Clear();
+            Console.WriteLine("What contact do you want to remove?");
+            var input = Console.ReadLine();
+            //Should remove a contact. 
+            Console.Clear();
+            contacts.RemoveAll(contact => contact.FirstName! == input);
+            doc.SavedDocuments(DocPath, JsonConvert.SerializeObject(contacts));
+            Console.WriteLine("Your contact was removed.");
+            Console.ReadLine();
+            WelcomeMenu();
+        }
+
+
+        private void OptionThree() // shows a specific contact
         {
             
             Console.Clear();
-            Console.WriteLine("What contact do you want to remove?");
-            string input = Console.ReadLine() ?? null!;
-
-            //Should remove a contact. 
-            IContact contact = contacts.Find(x => x.FirstName == input) ?? null! ; 
-            if(contact != null)
-            {
-                Console.Clear();
-                contacts.Remove(contact);
-                Console.WriteLine("Your contact was removed.");
-                Console.ReadLine();
-            }
-            
-            
-        }
-        private void OptionThree() // shows a contact
-        {
+            Console.WriteLine("Write the name of the contact:");
+            var contactName = Console.ReadLine();
             //Should show a contact thats saved in the list.
-            
+            var findContact = contacts.Find(x => x.FirstName == contactName);
+            Console.WriteLine("First name:" + findContact!.FirstName);
+            Console.WriteLine("Last name:" + findContact!.LastName);
+            Console.WriteLine("Phonenumber:" + findContact!.PhoneNumber);
+            Console.WriteLine("Family member:" + findContact!.FamilyMember);
+            Console.WriteLine("ICE:" + findContact!.ICE);
+            Console.ReadKey();
+            WelcomeMenu();
+
         }
         private void OptionFour() // shows all contacts
         {
             Console.Clear();
+            Console.WriteLine("Your Contacts:");
             //Should show all contacts that are saved in the list.
-            foreach(Contact contact in contacts)
-            {
-                Console.WriteLine(contact);
-            }
-
+            contacts!.ForEach(contact => Console.WriteLine("Name:" + contact.FirstName + "" + contact.LastName));
+            Console.ReadKey();
         }
     }
 }

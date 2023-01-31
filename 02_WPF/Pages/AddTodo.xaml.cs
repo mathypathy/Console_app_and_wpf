@@ -1,8 +1,7 @@
-﻿using System;
+﻿using _02_WPF.Models;
+using _02_WPF.Services;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,29 +14,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using _02_WPF.Models;
-using _02_WPF.Services;
-using Newtonsoft.Json;
 
 namespace _02_WPF.Pages
 {
     /// <summary>
-    /// Interaction logic for Todos.xaml
+    /// Interaction logic for AddTodo.xaml
     /// </summary>
-    public partial class Todos : Page
+    public partial class AddTodo : Page
     {
         private readonly FileService fileService;
-        public ObservableCollection<Activity_todo> TodoList { get; set; }
-        public Todos()
+        public AddTodo()
         {
             InitializeComponent();
             fileService = new FileService();
-            TodoList = (ObservableCollection<Activity_todo>)fileService.Activity();
-            lv_Todos.ItemsSource = TodoList;
         }
-        
 
+        private void btn_add_Activity_Click(object sender, RoutedEventArgs e)
+        {
+            fileService.AddToList(new Activity_todo { Text = tb_enter_Activity.Text });
+            tb_enter_Activity.Text = string.Empty;
 
+        }
 
     }
 }
