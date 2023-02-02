@@ -2,7 +2,7 @@
 
 namespace ConsoleApp.Services
 {
-    internal class DocumentManagement
+    public class DocumentManagement
     {
         public string DocPath { get; set; } = null!;
 

@@ -12,13 +12,16 @@ namespace ConsoleApp.Services
 {
 
     
-    internal class MenuManagement
+    public class MenuManagement
     { 
        // Builds a list for all contacts.
         private List<IContact> contacts = new List<IContact>();
         private  DocumentManagement doc = new DocumentManagement();
         public string DocPath { get; set; } = null!;
 
+        // Testet
+        public List<Contact> ContactList { get; set; } = null!;
+        //slutar här
 
         public void WelcomeMenu() // shows start menu
         {
@@ -90,6 +93,7 @@ namespace ConsoleApp.Services
             contacts.RemoveAll(contact => contact.FirstName! == input);
             doc.SavedDocuments(DocPath, JsonConvert.SerializeObject(contacts));
             Console.WriteLine("Your contact was removed.");
+            Console.WriteLine("Press enter to continue..");
             Console.ReadLine();
             WelcomeMenu();
         }
