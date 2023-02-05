@@ -64,6 +64,7 @@ namespace ConsoleApp.Services
         private void OptionOne() // adds contact
         {
             Console.Clear();
+            
             Console.WriteLine("Add Your contact.");
             IContact contact = new Contact();
             Console.Write("Add a first name:");
@@ -72,9 +73,9 @@ namespace ConsoleApp.Services
             contact.LastName = Console.ReadLine() ?? null!;
             Console.Write("Add a phone number:");
             contact.PhoneNumber = Convert.ToInt32(Console.ReadLine()); 
-            Console.Write("Is contact a family member?");
+            Console.Write("Is contact a family member? Y/N: ");
             contact.FamilyMember = Console.ReadLine() ?? null!;
-            Console.Write("is this a ICE contact?");
+            Console.Write("is this a ICE contact? Y/N: ");
             contact.ICE = Console.ReadLine() ?? null!;
             contacts.Add(contact);
             doc.SavedDocuments(DocPath, JsonConvert.SerializeObject(contacts));
@@ -107,6 +108,13 @@ namespace ConsoleApp.Services
             var contactName = Console.ReadLine();
             //Should show a contact thats saved in the list.
             var findContact = contacts.Find(x => x.FirstName == contactName);
+            if (findContact == null)
+            {
+                Console.WriteLine("The Contact you want to show does not exist.");
+                Console.ReadLine();
+                Console.Clear();
+                WelcomeMenu();
+            }
             Console.WriteLine("First name:" + findContact!.FirstName);
             Console.WriteLine("Last name:" + findContact!.LastName);
             Console.WriteLine("Phonenumber:" + findContact!.PhoneNumber);
@@ -120,9 +128,18 @@ namespace ConsoleApp.Services
         {
             Console.Clear();
             Console.WriteLine("Your Contacts:");
+            Console.WriteLine("------------------------------");
             //Should show all contacts that are saved in the list.
-            contacts!.ForEach(contact => Console.WriteLine("Name:" + contact.FirstName + "" + contact.LastName));
+            contacts!.ForEach(contact => 
+            Console.WriteLine(
+            "Name:" + contact.FirstName + "  " 
+            + contact.LastName + 
+            "\nPhone nr:" + "" + contact.PhoneNumber +
+             "\nfamily:" + contact.FamilyMember
+            + "\nICE:" + contact.ICE +
+            "\n------------------------------"));
             Console.ReadKey();
+            WelcomeMenu();
         }
     }
 }
